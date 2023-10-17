@@ -1,4 +1,4 @@
-import { Base64 } from "../../util/base64";
+import { Base64 } from "../../util/base64.encrypt.js";
 
 const base64 = new Base64();
 
