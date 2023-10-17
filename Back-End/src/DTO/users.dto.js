@@ -7,13 +7,12 @@ export class UsersDTO {
     format(user) {
         const id = String(user.id);
         const email = String(user.email);
-        const emailDomain = email.substring(email.indexOf("@"), email.length);
         const password = String(user.password);
 
         return {
-            id: id.substring(0, 16).concat("..."),
+            id: id,
             name: user.name,
-            email: email.substring(0, 4).concat("...").concat(emailDomain),
+            email: email,
             password: password.substring(0, (password.length / 2)).concat("..."),
             createdAt: dateFormat.formatTimestamp(user.createdAt),
             updatedAt: dateFormat.formatTimestamp(user.updatedAt)
