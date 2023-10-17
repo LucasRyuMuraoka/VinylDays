@@ -12,7 +12,7 @@ export class Base64 {
     }
 
     matches(expected, encodedString) {
-        if(!encodedString)
+        if(!encodedString || !expected)
             return false;
         
         const decodedString = this.decode(encodedString);
