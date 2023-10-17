@@ -7,4 +7,12 @@ export class DateFormat {
         return moment(timestamp).format(pattern);
     }
 
+    parseDatabaseFormat(timestampFormatted) {
+        let pattern = "HH:mm:ss DD/MM/YYYY";
+        let defaultISO = moment(timestampFormatted, pattern).toISOString();
+
+        pattern = "YYYY-MM-DD HH:mm:ss";
+        return moment(defaultISO).format(pattern);
+    }
+
 }
