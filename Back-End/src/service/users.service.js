@@ -22,7 +22,7 @@ export class UsersService {
             const usersList = await usersRepository.findAll();
             
             if(!usersList[0])
-                reject(new UserNotFound("The method to fetch all users was invoked but the database is empty!"));
+                reject(new UserNotFound("The method to fetch all users was invoked but the table album is empty!"));
 
             const usersDTOList = new Array();
             

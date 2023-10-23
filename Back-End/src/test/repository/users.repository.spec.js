@@ -39,7 +39,7 @@ describe("Users repository \"switch class\"", () => {
 
     test("Find by id", async () => {
         query = `SELECT ${fields[0]}, ${fields[1]}, ${fields[2]}, ${fields[3]}, ${fields[4]}, ${fields[5]} FROM tb_users WHERE ${fields[0]} = ?`;
-        const [queryRows, queryFields] = await connection.execute(query, ["544fde26-644a-11ee-b88f-ec63d7ea86d4"]);
+        const [queryRows, queryFields] = await connection.execute(query, ["52aedd47-71d3-11ee-9aef-ec63d7ea86d4"]);
         const name = queryRows[0].name;
 
         expect(name).toBe("Matheus Ferreira Santos");
@@ -69,7 +69,7 @@ describe("Users repository \"switch class\"", () => {
         }
 
         const [queryRows, queryFields] = await connection.execute(query, [req.body.email]);
-        console.log(queryRows);
+				expect(0).toBe(queryRows.affectedRows);
     });
 
 });
