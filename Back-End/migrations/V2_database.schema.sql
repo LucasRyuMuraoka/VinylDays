@@ -17,6 +17,7 @@ CREATE TABLE tb_albums(
   id VARCHAR(36) PRIMARY KEY,
   name VARCHAR(45) NOT NULL,
   artist VARCHAR(60) NOT NULL,
+  category VARCHAR(60) NOT NULL,
   price DOUBLE NOT NULL,
   oldPrice DOUBLE,
   createdAt TIMESTAMP NOT NULL,
