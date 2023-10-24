@@ -1,6 +1,17 @@
 import { AppErrors } from "../error/AppErrors.error.js";
 import { AlbumsService } from "../service/albums.service.js";
 
+<<<<<<< HEAD
+=======
+/*
+	Padrão de HTTP STATUS:
+
+	Métodos do tipo GET: 200,
+	Métodos do tipo POST: 201,
+	Métodos do tipo PUT e Delete: 204
+*/
+
+>>>>>>> b77c73a691b816656574c0f9cc3fb18e6e338fcf
 export class AlbumsController {
 
 	albumsService = new AlbumsService();
@@ -61,6 +72,7 @@ export class AlbumsController {
   }
 
   create(request, response) {
+<<<<<<< HEAD
     const reqBody = request.body;
 
     this.albumsService.create(reqBody).then(() => {
@@ -85,6 +97,13 @@ export class AlbumsController {
       else
           console.log(error);
     });
+=======
+
+  }
+
+  update(request, response) {
+    
+>>>>>>> b77c73a691b816656574c0f9cc3fb18e6e338fcf
   }
 
   delete(request, response) {
