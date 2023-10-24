@@ -101,10 +101,7 @@ export class UsersService {
                 let userExist = false;
 
                 datas.forEach(data => {
-                    console.log(data.email + " :>> " + user.email);
-
                     if(user.email === data.email) {
-                        console.log(data.email + " dentro :>> " + user.email);
                         userExist = true;
                     }
                 });
@@ -174,7 +171,6 @@ export class UsersService {
                     }
                 );
 
-                /* Verifica os campos */
                 usersValidation.validation(newUser).then(async (userPromise) => {
                     if(oldUser) {
                         const userReadyToUpdate = {

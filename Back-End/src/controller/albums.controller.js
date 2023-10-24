@@ -1,6 +1,8 @@
 import { AppErrors } from "../error/AppErrors.error.js";
 import { AlbumsService } from "../service/albums.service.js";
 
+<<<<<<< HEAD
+=======
 /*
 	Padrão de HTTP STATUS:
 
@@ -9,6 +11,7 @@ import { AlbumsService } from "../service/albums.service.js";
 	Métodos do tipo PUT e Delete: 204
 */
 
+>>>>>>> b77c73a691b816656574c0f9cc3fb18e6e338fcf
 export class AlbumsController {
 
 	albumsService = new AlbumsService();
@@ -69,11 +72,38 @@ export class AlbumsController {
   }
 
   create(request, response) {
+<<<<<<< HEAD
+    const reqBody = request.body;
+
+    this.albumsService.create(reqBody).then(() => {
+      response.status(201).json();
+  	}).catch((error) => {
+      if(error instanceof AppErrors)
+        response.status(error.status).json({ name: error.name, message: error.message, date: error.date, statusCode: error.status });
+      else
+          console.log(error);
+  	});
+	}
+
+  update(request, response) {
+    const id = request.params.id;
+    const reqBody = request.body;
+
+    this.albumsService.update(reqBody, id).then(() => {
+      response.status(204).json();
+    }).catch((error) => {
+      if(error instanceof AppErrors)
+        response.status(error.status).json({ name: error.name, message: error.message, date: error.date, statusCode: error.status });
+      else
+          console.log(error);
+    });
+=======
 
   }
 
   update(request, response) {
     
+>>>>>>> b77c73a691b816656574c0f9cc3fb18e6e338fcf
   }
 
   delete(request, response) {
