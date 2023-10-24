@@ -15,6 +15,16 @@ describe('Regex Validation to Albums Table', () => {
   
     const invalidArtistName = "";
     expect(false).toBe(__REGEX__.ARTIST_NAME.test(invalidArtistName));
+    });
 
+    test('Category Name test', () => {
+      const validCategoryName = "Hip-hop";
+      expect(true).toBe(__REGEX__.CATEGORY_NAME.test(validCategoryName));
+
+      const invalidCategoryName = "Hip-@$";
+      expect(false).toBe(__REGEX__.CATEGORY_NAME.test(invalidCategoryName));
+
+      const invalidCategoryName2 = "";
+      expect(false).toBe(__REGEX__.CATEGORY_NAME.test(invalidCategoryName2));
     });
 });
