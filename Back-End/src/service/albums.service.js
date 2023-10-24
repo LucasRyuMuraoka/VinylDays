@@ -1,7 +1,6 @@
 import { AlbumsRepository } from "../repository/albums.repository.js";
 import { AlbumNotFound } from "../error/specialization/AlbumNotFound.error.js";
 import { AlbumsDTO } from "../DTO/albums.dto.js";
-<<<<<<< HEAD
 import { AlbumAlreadyExists } from "../error/specialization/AlbumAlreadyExists.error.js";
 import { AlbumsValidations } from "../util/albums.validation.js";
 import { InvalidFields } from "../error/specialization/InvalidFields.error.js";
@@ -9,11 +8,6 @@ import { InvalidFields } from "../error/specialization/InvalidFields.error.js";
 const albumsDTO = new AlbumsDTO();
 const albumsRepository = new AlbumsRepository();
 const albumsValidations = new AlbumsValidations();
-=======
-
-const albumsDTO = new AlbumsDTO();
-const albumsRepository = new AlbumsRepository();
->>>>>>> b77c73a691b816656574c0f9cc3fb18e6e338fcf
 
 export class AlbumsService {
   
@@ -106,7 +100,6 @@ export class AlbumsService {
 
 
 	create(newAlbum) {
-<<<<<<< HEAD
 		return new Promise(async (resolve, reject) => {
 			const albumExist = await this.findAll().then((datas) => {
 				let albumExist = false;
@@ -206,20 +199,8 @@ export class AlbumsService {
 						reject(new AlbumAlreadyExists("There is already a album with this name registered in our system!"));
 				}
 			});
-		}
-=======
-
-		if(!newAlbum.oldPrice || newAlbum.oldPrice > newAlbum.price) {
-			newAlbum.oldPrice = newAlbum.price;
-		}
-
 	}
-
-	update(newAlbum, id) {
-
-	}
->>>>>>> b77c73a691b816656574c0f9cc3fb18e6e338fcf
-
+	
 	delete(id) {
 		return new Promise(async (resolve, reject) => {
 			await this.findById(id).then(async () => {

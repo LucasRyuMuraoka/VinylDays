@@ -15,7 +15,6 @@ describe('Regex Validation to Albums Table', () => {
   
     const invalidArtistName = "";
     expect(false).toBe(__REGEX__.ARTIST_NAME.test(invalidArtistName));
-<<<<<<< HEAD
     });
 
     test('Category Name test', () => {
@@ -27,8 +26,5 @@ describe('Regex Validation to Albums Table', () => {
 
       const invalidCategoryName2 = "";
       expect(false).toBe(__REGEX__.CATEGORY_NAME.test(invalidCategoryName2));
-=======
-
->>>>>>> b77c73a691b816656574c0f9cc3fb18e6e338fcf
     });
 });
