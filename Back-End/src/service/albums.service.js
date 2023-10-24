@@ -1,9 +1,13 @@
 import { AlbumsRepository } from "../repository/albums.repository.js";
 import { AlbumNotFound } from "../error/specialization/AlbumNotFound.error.js";
 import { AlbumsDTO } from "../DTO/albums.dto.js";
+import { AlbumAlreadyExists } from "../error/specialization/AlbumAlreadyExists.error.js";
+import { AlbumsValidations } from "../util/albums.validation.js";
+import { InvalidFields } from "../error/specialization/InvalidFields.error.js";
 
 const albumsDTO = new AlbumsDTO();
 const albumsRepository = new AlbumsRepository();
+const albumsValidations = new AlbumsValidations();
 
 export class AlbumsService {
   
@@ -96,16 +100,106 @@ export class AlbumsService {
 
 
 	create(newAlbum) {
+		return new Promise(async (resolve, reject) => {
+			const albumExist = await this.findAll().then((datas) => {
+				let albumExist = false;
 
-		if(!newAlbum.oldPrice || newAlbum.oldPrice > newAlbum.price) {
-			newAlbum.oldPrice = newAlbum.price;
-		}
+				datas.forEach(data => {
+					if(newAlbum.name === data.name) {
+						albumExist = true;
+					}
+				});
 
+				return albumExist;
+			}).catch((error) => {
+				if(error instanceof AlbumNotFound)
+					reject(new AlbumNotFound(error.message));
+				else
+					console.log(error);
+			});
+
+			if(!albumExist) {
+				albumsValidations.validation(newAlbum).then(async (validatedAlbum) => {
+					const albumReadyToSave = {
+						name: validatedAlbum.name,
+						artist: validatedAlbum.artist,
+						category: validatedAlbum.category,
+						price: validatedAlbum.price,
+						oldPrice: validatedAlbum.oldPrice
+					}
+
+					await albumsRepository.create(albumReadyToSave);
+					resolve();
+				}).catch((error) => {
+					if(error instanceof InvalidFields)
+						reject(new InvalidFields(error.message));
+					else
+						console.log(error);
+				});
+			} else {
+					reject(new AlbumAlreadyExists("There is already a album with this name registered in our system!"));
+			}
+		});
 	}
-
+	
 	update(newAlbum, id) {
+		return new Promise(async (resolve, reject) => {
+			let albumExist = await this.findAll()
+				.then((datas) => {
+					let albumExist = false;
 
-	}
+					datas.forEach((data) => {
+						if(newAlbum.name === data.name && data.id !== id) {
+							albumExist = true;
+						}
+					});
+
+					return albumExist;
+
+				}).catch((error) => {
+					if(error instanceof AlbumNotFound)
+						reject(new AlbumNotFound(error.message));
+					else 
+						console.log(error);
+				});
+
+				if(!albumExist) {
+					const oldAlbum = await this.findById(id)
+						.then((data) => {
+							return data
+						}).catch((error) => {
+								if(error instanceof AlbumNotFound)
+									reject(new AlbumNotFound(error.message));
+								else
+									console.log(error);
+						}
+					);
+
+					albumsValidations.validation(newAlbum).then(async (validatedAlbum) => {
+						if(oldAlbum) {
+							const albumReadyToUpdate = {
+								id: id,
+								name: validatedAlbum.name,
+								artist: validatedAlbum.artist,
+								category: validatedAlbum.category,
+								price: validatedAlbum.price,
+								oldPrice: validatedAlbum.oldPrice
+							}
+
+							await albumsRepository.update(albumReadyToUpdate);
+							resolve();
+						}
+					}).catch((error) => {
+						if(error instanceof InvalidFields)
+							reject(new InvalidFields(error.message));
+						else
+							console.log(error);
+					});
+				} else {
+						reject(new AlbumAlreadyExists("There is already a album with this name registered in our system!"));
+				}
+			});
+		}
 
 	delete(id) {
 		return new Promise(async (resolve, reject) => {
