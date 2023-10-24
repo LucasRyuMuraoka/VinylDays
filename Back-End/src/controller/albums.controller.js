@@ -1,14 +1,6 @@
 import { AppErrors } from "../error/AppErrors.error.js";
 import { AlbumsService } from "../service/albums.service.js";
 
-/*
-	Padrão de HTTP STATUS:
-
-	Métodos do tipo GET: 200,
-	Métodos do tipo POST: 201,
-	Métodos do tipo PUT e Delete: 204
-*/
-
 export class AlbumsController {
 
 	albumsService = new AlbumsService();
@@ -69,11 +61,30 @@ export class AlbumsController {
   }
 
   create(request, response) {
+    const reqBody = request.body;
 
-  }
+    this.albumsService.create(reqBody).then(() => {
+      response.status(201).json();
+  	}).catch((error) => {
+      if(error instanceof AppErrors)
+        response.status(error.status).json({ name: error.name, message: error.message, date: error.date, statusCode: error.status });
+      else
+          console.log(error);
+  	});
+	}
 
   update(request, response) {
-    
+    const id = request.params.id;
+    const reqBody = request.body;
+
+    this.albumsService.update(reqBody, id).then(() => {
+      response.status(204).json();
+    }).catch((error) => {
+      if(error instanceof AppErrors)
+        response.status(error.status).json({ name: error.name, message: error.message, date: error.date, statusCode: error.status });
+      else
+          console.log(error);
+    });
   }
 
   delete(request, response) {
