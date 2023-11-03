@@ -6,6 +6,8 @@ const GlobalStyle = createGlobalStyle`
         --circle-text-color: rgb(82, 70, 222, 0.2); 
 
         --button-background: #410179;
+        --button-add-background: #00CA2C;
+
 
         --text-body: #FFFFFF;
         --shape: #0B0C16;
@@ -22,6 +24,7 @@ const GlobalStyle = createGlobalStyle`
         --footer-background: #222222;
 
         --elipse-blue: #605fd3;
+        --elipse-light-purple: #6F6CF2;
     }
 
 
