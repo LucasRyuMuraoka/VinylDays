@@ -1,10 +1,12 @@
 import { Router, json } from "express";
 import { UsersController } from "../controller/users.controller.js";
 import { AlbumsController } from "../controller/albums.controller.js";
+import { AuthController } from "../controller/auth.controller.js";
 
 const router = Router();
 const usersController = new UsersController();
 const albumsController = new AlbumsController();
+const authController = new AuthController();
 
 router.use(json());
 
@@ -23,5 +25,7 @@ router.get("/albums/category/:category", (request, response) => albumsController
 router.post("/albums", (request, response) => albumsController.create(request, response));
 router.put("/albums/:id", (request, response) => albumsController.update(request, response));
 router.delete("/albums/:id", (request, response) => albumsController.delete(request, response));
+
+router.post("/login", (request, response) => authController.login(request, response));
 
 export { router };

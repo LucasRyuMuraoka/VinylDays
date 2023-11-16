@@ -14,10 +14,11 @@ const options = SwaggerOptions;
 const environment = swaggerJSDoc(options);
 
 const app = express();
+app.use(cors());
+
 const PORT = process.env.PORT || 4000;
 
 app.use("/api/", Router);
 app.use("/swagger/ui/docs", swaggerUi.serve, swaggerUi.setup(environment));
-app.use(cors());
 
 app.listen(PORT, () => console.log(`Server run on port ${PORT} 🚀🚀🚀`));

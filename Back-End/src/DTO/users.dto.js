@@ -5,15 +5,11 @@ const dateFormat = new DateFormat();
 export class UsersDTO {
 
     format(user) {
-        const id = String(user.id);
-        const email = String(user.email);
-        const password = String(user.password);
-
         return {
-            id: id,
+            id: user.id,
             name: user.name,
-            email: email,
-            password: password.substring(0, (password.length / 2)).concat("..."),
+            email: user.email,
+            password: user.password,
             createdAt: dateFormat.formatTimestamp(user.createdAt),
             updatedAt: dateFormat.formatTimestamp(user.updatedAt)
         }

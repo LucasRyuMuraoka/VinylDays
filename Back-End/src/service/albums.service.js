@@ -98,7 +98,6 @@ export class AlbumsService {
 		});
 	}
 
-
 	create(newAlbum) {
 		return new Promise(async (resolve, reject) => {
 			const albumExist = await this.findAll().then((datas) => {
@@ -124,6 +123,7 @@ export class AlbumsService {
 						name: validatedAlbum.name,
 						artist: validatedAlbum.artist,
 						category: validatedAlbum.category,
+						URL: newAlbum.URL,
 						price: validatedAlbum.price,
 						oldPrice: validatedAlbum.oldPrice
 					}
@@ -182,6 +182,7 @@ export class AlbumsService {
 								name: validatedAlbum.name,
 								artist: validatedAlbum.artist,
 								category: validatedAlbum.category,
+								URL: newAlbum.URL,
 								price: validatedAlbum.price,
 								oldPrice: validatedAlbum.oldPrice
 							}
@@ -199,8 +200,8 @@ export class AlbumsService {
 						reject(new AlbumAlreadyExists("There is already a album with this name registered in our system!"));
 				}
 			});
-	}
-	
+		}
+
 	delete(id) {
 		return new Promise(async (resolve, reject) => {
 			await this.findById(id).then(async () => {
@@ -214,4 +215,5 @@ export class AlbumsService {
 			});
 		});
 	}
+	
 }

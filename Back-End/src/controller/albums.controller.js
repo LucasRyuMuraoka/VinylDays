@@ -85,7 +85,7 @@ export class AlbumsController {
       else
           console.log(error);
     });
-	}
+  }
 
   delete(request, response) {
     this.albumsService.delete(request.params.id).then(() => {

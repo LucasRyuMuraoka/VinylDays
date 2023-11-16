@@ -9,6 +9,7 @@ export class AlbumsDTO {
       name: album.name, 
       artist: album.artist,
       category: album.category,
+			URL: album.URL,
       price: album.price, 
       oldPrice: album.oldPrice,
       createdAt: dateFormat.formatTimestamp(album.createdAt),
