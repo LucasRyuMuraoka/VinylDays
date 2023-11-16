@@ -3,10 +3,10 @@ import mysql from "mysql2";
 const ENV = process.env;
 
 const connection = mysql.createConnection({
-    host: ENV.HOST,
-    database: ENV.DATABASE,
-    user: ENV.USER,
-    password: ENV.PASSWORD
+    host: ENV.MYSQL_HOST,
+    database: ENV.MYSQL_DATABASE,
+    user: ENV.MYSQL_USER,
+    password: ENV.MYSQL_PASSWORD
 });
 
 export { connection };
