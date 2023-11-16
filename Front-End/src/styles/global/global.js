@@ -9,7 +9,10 @@ const GlobalStyle = createGlobalStyle`
         --button-add-background: #00CA2C;
 
 
+				--modal-background: #FFFFFF;
+
         --text-body: #FFFFFF;
+        --text-dark: #000000;
         --shape: #0B0C16;
         --shape-footer: #222222;
 
@@ -94,6 +97,58 @@ const GlobalStyle = createGlobalStyle`
     [disabled] {
         opacity: 0.6;
         cursor: not-allowed;
+    }
+
+		input[type=number]::-webkit-inner-spin-button { 
+    	-webkit-appearance: none;    
+		}
+		
+		input[type=number] { 
+			-moz-appearance: textfield;
+			appearance: textfield;
+
+		}
+
+
+		.react-modal-overlay {
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+			z-index: 99;
+	  }
+
+    .react-modal-content {
+      max-width: 550px;
+			min-height: 400px;
+      width: 100%;
+
+      background: var(--modal-background);
+      padding: 3rem;
+      position: relative;
+        
+      border-radius: 0.25rem;
+    }
+
+    .react-modal-close {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      border: 0;
+      background: transparent;
+
+      transition: filter 0.15s;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
     }
 `;
 

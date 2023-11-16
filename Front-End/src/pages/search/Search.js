@@ -8,7 +8,7 @@ import { Container, TitleContainer, Title, CircleTitle, CircleMinimal, CircleLar
 
 const Search = () => {
     
-    const [searchInputValue, setSearchInputValue] = useState("");
+		const [searchInputValue, setSearchInputValue] = useState("");
     useDinamicPageTitle("Vinyl Days - Search Page");
 
     const handleSearchInput = (value) => {

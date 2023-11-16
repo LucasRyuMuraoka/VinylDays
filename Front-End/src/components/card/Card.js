@@ -17,7 +17,7 @@ const Card = ({ id, title, artist, price, oldPrice, image, handleMouseClick }) =
 
     return(
         <Container onClick={ handleClick }>
-            <Image src={ image } alt="Album cape jpg"></Image>
+            <Image src={ image } alt="Album cape jpg" />
 
             <Infos>
                 <Album>

@@ -4,31 +4,77 @@ import { Toast } from "../../components/toast/Toast";
 import { useDinamicPageTitle } from "../../hooks/UseDinamicPageTitle";
 import { logoSvg, elipse01, elipse02, loginImageUnDrawn } from "../../assets/images";
 import { Container, Left, Logo, TitleContainer, Title, SubTitle, FirstElipse, SecondElipse, Form, EmailContainer, Input, PasswordContainer, BtnSubmit, Right, RightImage } from "./styles";
+import { useNavigate } from "react-router-dom";
+import { LoginService } from "../../service/login.service";
+import { appTimeout } from "../../service/sleep.service";
+
+const loginService = new LoginService();
 
 const Login = () => {
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  useDinamicPageTitle("Vinyl Days - Login Page");
+  const [isBlocked, setIsBlocked] = useState(false);
 
-  const handleSubmit = (e) => {
+	useDinamicPageTitle("Vinyl Days - Login Page");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+		setIsBlocked(true);
+		
+		const alert = toast.loading("Please wait...");
 
-    console.log({email, password});
+		const requestBody = {
+			email,
+			password
+		}
 
-    toast.success('Logado!!!', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
+    loginService.login(requestBody).then(async data => {
+			if(!sessionStorage.getItem("JWT")) {
+				sessionStorage.setItem("JWT", data);
+			}
 
-    setEmail("");
-    setPassword("");
+			await appTimeout(2000);
+
+			toast.update(alert, {
+				render: "Logged! Await auto redirect...",
+				type: "success",
+				isLoading: false,
+				position: "top-right",
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: false,
+				draggable: true,
+				progress: undefined,
+				theme: "colored",
+			});
+
+			await appTimeout(2000);
+			navigate("/admin");
+
+		}).catch(async error => {
+			console.clear();
+			await appTimeout(2000);
+
+			toast.update(alert, {
+				render: error,
+				type: "error",
+				isLoading: false,
+				position: "top-right",
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: false,
+				draggable: true,
+				progress: undefined,
+				theme: "colored",
+			});
+		});
+
+		await appTimeout(2000);
+		setIsBlocked(false);
   }
 
   return (
@@ -78,7 +124,7 @@ const Login = () => {
               />
             </PasswordContainer>
 
-            <BtnSubmit type="submit">Sign In</BtnSubmit>
+            <BtnSubmit type="submit" disabled={ isBlocked }>{ isBlocked ? "Await..." : "Sign In" }</BtnSubmit>
           </Form>
       </Left>
 
