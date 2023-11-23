@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Th, BtnAction, AlignCenter, Image, TableData, TableDataNotFound } from "./styles";
 import { CardService } from "../../service/card.service";
 import { DeleteAlbumModal } from "../modal/deleteAlbumModal";
+import { UpdateAlbumModal } from "../modal/updateAlbumModal/UpdateAlbumModal";
 import { AlbumsService } from "../../service/albums.service";
 import { appTimeout } from "../../service/sleep.service";
 import { toast } from "react-toastify";
@@ -15,6 +16,7 @@ const Table = ({ filter }) => {
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [selectedAlbum, setSelectedAlbum] = useState();
 	const [deleteAlbumModalIsOpen, setDeleteAlbumModalIsOpen] = useState(false);
+	const [updateAlbumModalIsOpen, setUpdateAlbumModalIsOpen] = useState(false);
   
 	let albumsWithFilter = cardService.handleInputFilter(filter, albums);
 
@@ -68,6 +70,20 @@ const Table = ({ filter }) => {
 	const handleCloseDeleteAlbumModal = () => {
 		document.body.style.overflow = "auto";
 		setDeleteAlbumModalIsOpen(false);
+		window.location.reload();
+	}
+
+	const handleOpenUpdateAlbumModal = (album) => {
+		console.log("Entrei");
+
+		setSelectedAlbum(album);
+		document.body.style.overflow = "hidden";
+		setUpdateAlbumModalIsOpen(true);
+	}
+
+	const handleCloseUpdateAlbumModal = () => {
+		document.body.style.overflow = "auto";
+		setUpdateAlbumModalIsOpen(false);
 		window.location.reload();
 	}
 
@@ -136,7 +152,7 @@ const Table = ({ filter }) => {
 												</AlignCenter>
 											</td>
 											<td className="text-center align-middle">
-												<BtnAction width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<BtnAction onClick={ () => handleOpenUpdateAlbumModal(album) } width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
 													<circle cx="30" cy="30" r="30" fill="#4200FF" fillOpacity="0.5" />
 													<path d="M30.0081 47.7692C28.5344 47.7692 27.1417 46.8623 26.1862 45.2753L24.8583 43.0729C24.3725 42.2632 24 40.9352 24 39.9959V18.9919C24 15.6883 26.6883 13 29.9919 13C33.2955 13 35.9838 15.6883 35.9838 18.9919V39.9798C35.9838 40.919 35.6113 42.247 35.1255 43.0567L33.7976 45.2591C32.8745 46.8623 31.4818 47.7692 30.0081 47.7692ZM30.0081 15.4291C28.0486 15.4291 26.4453 17.0324 26.4453 18.9919V39.9798C26.4453 40.4818 26.6883 41.3725 26.9474 41.8097L28.2753 44.0121C28.7773 44.8542 29.4089 45.3239 30.0081 45.3239C30.6073 45.3239 31.2389 44.8381 31.7409 44.0121L33.0688 41.8097C33.3279 41.3725 33.5708 40.4818 33.5708 39.9798V18.9919C33.5708 17.0324 31.9676 15.4291 30.0081 15.4291Z" fill="white" />
 													<path d="M34.7854 23.5258H25.2146C24.5506 23.5258 24 22.9752 24 22.3113C24 21.6473 24.5506 21.0967 25.2146 21.0967H34.7854C35.4494 21.0967 36 21.6473 36 22.3113C36 22.9752 35.4494 23.5258 34.7854 23.5258Z" fill="white" />
@@ -200,7 +216,7 @@ const Table = ({ filter }) => {
 											</AlignCenter>
 										</td>
 										<td className="text-center align-middle">
-											<BtnAction width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<BtnAction onClick={ () => handleOpenUpdateAlbumModal(album) } width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<circle cx="30" cy="30" r="30" fill="#4200FF" fillOpacity="0.5" />
 												<path d="M30.0081 47.7692C28.5344 47.7692 27.1417 46.8623 26.1862 45.2753L24.8583 43.0729C24.3725 42.2632 24 40.9352 24 39.9959V18.9919C24 15.6883 26.6883 13 29.9919 13C33.2955 13 35.9838 15.6883 35.9838 18.9919V39.9798C35.9838 40.919 35.6113 42.247 35.1255 43.0567L33.7976 45.2591C32.8745 46.8623 31.4818 47.7692 30.0081 47.7692ZM30.0081 15.4291C28.0486 15.4291 26.4453 17.0324 26.4453 18.9919V39.9798C26.4453 40.4818 26.6883 41.3725 26.9474 41.8097L28.2753 44.0121C28.7773 44.8542 29.4089 45.3239 30.0081 45.3239C30.6073 45.3239 31.2389 44.8381 31.7409 44.0121L33.0688 41.8097C33.3279 41.3725 33.5708 40.4818 33.5708 39.9798V18.9919C33.5708 17.0324 31.9676 15.4291 30.0081 15.4291Z" fill="white" />
 												<path d="M34.7854 23.5258H25.2146C24.5506 23.5258 24 22.9752 24 22.3113C24 21.6473 24.5506 21.0967 25.2146 21.0967H34.7854C35.4494 21.0967 36 21.6473 36 22.3113C36 22.9752 35.4494 23.5258 34.7854 23.5258Z" fill="white" />
@@ -227,6 +243,13 @@ const Table = ({ filter }) => {
 																				handleDeleteAlbum={ handleDeleteAlbum }
 																				onCloseDeleteAlbumModal={ handleCloseDeleteAlbumModal }
 																				isDisabled={ isDisabled }
+																			/>
+				}
+				{
+					(updateAlbumModalIsOpen) && <UpdateAlbumModal
+																				isOpenned={ updateAlbumModalIsOpen }
+																				selectedAlbum={ selectedAlbum }
+																				onCloseDeleteAlbumModal={ handleCloseUpdateAlbumModal }
 																			/>
 				}
 			</Container>

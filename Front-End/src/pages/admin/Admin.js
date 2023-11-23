@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { Footer } from "../../components/footer/Footer";
 import { Table } from "../../components/table";
-import { BtnNewAlbum, Container, Elipse, Header, Logo, Main, MainHeader, RightContainer, Subtitle, SubtitleContainer, Title, TitleContainer } from "./styles";
+import { BtnNewAlbum, Container, Elipse, Header, Logo, Main, MainHeader, RightContainer, Subtitle, SubtitleContainer, Title, TitleContainer, Logout, LogoutContainer } from "./styles";
 import { useDinamicPageTitle } from "../../hooks/UseDinamicPageTitle";
 import { logoSvg } from "../../assets/images";
 import { Input } from "../../components/input/Input";
 import { useState } from "react";
 import { NewAlbumModal } from "../../components/modal/newAlbumModal";
 import { Link, useNavigate } from "react-router-dom";
+import { LoginService } from "../../service/login.service";
 
 const Admin = () => {
 
+	const loginService = new LoginService();
 	const navigate = useNavigate();
   const [input, setInput] = useState("");
 	const [newAlbumModalIsOpen, setNewAlbumModalIsOpen] = useState(false);
@@ -30,6 +32,10 @@ const Admin = () => {
 		document.body.style.overflow = "auto";
 		setNewAlbumModalIsOpen(false);
 		window.location.reload();
+	}
+
+	const logout = () => {
+		loginService.logout();
 	}
 
 	useEffect(() => {
@@ -73,7 +79,12 @@ const Admin = () => {
           </MainHeader>
 
           <Table filter={ input }/>
-        </Main> 
+
+					<LogoutContainer>
+						<Title className="logout">Do you want to log out of your account?</Title>
+						<Logout onClick={ logout }>Logout</Logout>
+					</LogoutContainer>
+        </Main>
       </Container>
 
       <Footer />

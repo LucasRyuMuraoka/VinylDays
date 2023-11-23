@@ -24,9 +24,9 @@ const CardList = ({ filter }) => {
         <ContainerGrid>
             {
                 filter.length === 0 ?
-                    albums.map(card => <Card key={card.id} handleMouseClick={handleMouseClick} id={card.id} category={card.category} title={card.title} artist={card.artist} price={card.price} oldPrice={card.oldPrice} image={card.URL}/>)
+                    albums.map(card => <Card key={card.id} handleMouseClick={handleMouseClick} id={card.id} category={card.category} title={card.name} artist={card.artist} price={card.price} oldPrice={card.oldPrice} image={card.URL}/>)
                 :
-                    albumsWithFilter.length === 0 ? <NotFoundText>No albums found...</NotFoundText> : albumsWithFilter.map(card => <Card key={card.id} handleMouseClick={handleMouseClick} id={card.id} category={card.category} title={card.title} artist={card.artist} price={card.price} oldPrice={card.oldPrice} image={card.URL}/>)
+                    albumsWithFilter.length === 0 ? <NotFoundText>No albums found...</NotFoundText> : albumsWithFilter.map(card => <Card key={card.id} handleMouseClick={handleMouseClick} id={card.id} category={card.category} title={card.name} artist={card.artist} price={card.price} oldPrice={card.oldPrice} image={card.URL}/>)
             }
         </ContainerGrid>
     );

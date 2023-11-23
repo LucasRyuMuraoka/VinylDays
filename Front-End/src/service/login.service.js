@@ -13,4 +13,9 @@ export class LoginService {
 		});
   }
 
+	logout() {
+		sessionStorage.clear();
+		window.location.reload();
+	}
+
 }

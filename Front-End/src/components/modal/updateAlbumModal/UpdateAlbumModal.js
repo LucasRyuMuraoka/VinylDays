@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import { AlbumsService } from "../../../service/albums.service";
 import { appTimeout } from "../../../service/sleep.service";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const albumsService = new AlbumsService();
 
-const NewAlbumModal = ({ isOpenned, onCloseNewAlbumModal }) => {
+const UpdateAlbumModal = ({ isOpenned, selectedAlbum, onCloseDeleteAlbumModal }) => {
 	
 	const navigate = useNavigate();
 	
@@ -40,9 +40,9 @@ const NewAlbumModal = ({ isOpenned, onCloseNewAlbumModal }) => {
 			category
 		}
 
-		albumsService.create(data).then(async () => {
+		albumsService.update(data, selectedAlbum.id).then(async () => {
 			toast.update(alert, {
-				render: "Created! Await auto redirect...",
+				render: "Updated! Await auto redirect...",
 				type: "success",
 				isLoading: false,
 				position: "top-right",
@@ -56,7 +56,7 @@ const NewAlbumModal = ({ isOpenned, onCloseNewAlbumModal }) => {
 			});
 
 			await appTimeout(4000);
-			onCloseNewAlbumModal();
+			onCloseDeleteAlbumModal();
 		}).catch(async error => {
 			console.clear();
 
@@ -79,16 +79,27 @@ const NewAlbumModal = ({ isOpenned, onCloseNewAlbumModal }) => {
 		});
 	}
 
+	useEffect(() => {
+		if(selectedAlbum) {
+			setName(selectedAlbum.name);
+			setArtist(selectedAlbum.artist);
+			setPrice(selectedAlbum.price);
+			setOldPrice(selectedAlbum.oldPrice);
+			setURL(selectedAlbum.URL);
+			setCategory(selectedAlbum.category);
+		}
+	}, []);
+
 	return (
 		<>
 			<ReactModal
 				isOpen={ isOpenned }
-				onRequestClose={ onCloseNewAlbumModal }
+				onRequestClose={ onCloseDeleteAlbumModal }
 				overlayClassName="react-modal-overlay"
 				className="react-modal-content"
 				ariaHideApp={false}
 			>
-				<Title>Add a new album</Title>
+				<Title>Update album</Title>
 				<Subtitle>Mandatory fields are marked with <span>*</span></Subtitle>
 
 				<Form>
@@ -116,7 +127,7 @@ const NewAlbumModal = ({ isOpenned, onCloseNewAlbumModal }) => {
 
 					<InputContainer>
 							<Label>URL: <span>*</span></Label>
-							<Input type="text" placeholder="Insert a album image url..." required={ true } value={ URL } onChange={ (e) => setURL(e.target.value) }/>
+							<Input type="text" placeholder="Insert a album image url..." minLength={ 30 } required={ true } value={ URL } onChange={ (e) => setURL(e.target.value) }/>
 					</InputContainer>
 
 					<InputContainer>
@@ -132,7 +143,7 @@ const NewAlbumModal = ({ isOpenned, onCloseNewAlbumModal }) => {
 
 					<SubmitBtn type="button" onClick={handleSubmit} disabled={ isDisabled }>
 						{
-							(isDisabled) ? "Await..." : "Add"
+							(isDisabled) ? "Await..." : "Update"
 						}
 					</SubmitBtn>
 				</Form>
@@ -143,4 +154,4 @@ const NewAlbumModal = ({ isOpenned, onCloseNewAlbumModal }) => {
 	);
 }
 
-export { NewAlbumModal };
+export { UpdateAlbumModal };

@@ -24,6 +24,10 @@ const Title = styled.h1`
   position: relative;
   z-index: 1;
 
+	&.logout {
+		text-align: center;
+	}
+
   @media only screen and (max-width: 426px) {
     font-size: 1.5rem;
   }
@@ -183,6 +187,36 @@ const MainHeader = styled.section`
   }
 `;
 
+const Logout = styled.button`
+	max-width: 450px;
+	width: 100%;
+	height: 55px;
+
+	background-color: transparent;
+	border: 2px solid red;
+	border-radius: 10px;
+	color: red;
+
+	font-size: 20px;
+	font-weight: 800;
+
+	&:hover, &:active {
+		background-color: red;
+		color: white;
+	}
+`;
+
+const LogoutContainer = styled.section`
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	justify-content: center;
+	align-items: center;
+
+	margin-top: 65px;
+`;
+
 export {
   Container,
   BtnNewAlbum,
@@ -196,4 +230,6 @@ export {
   SubtitleContainer,
   Title,
   TitleContainer,
+	Logout,
+	LogoutContainer
 };
